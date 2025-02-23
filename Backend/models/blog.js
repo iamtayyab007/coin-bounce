@@ -16,13 +16,13 @@ const blogSchema = new mongoose.Schema(
     },
     author: {
       type: mongoose.SchemaTypes.ObjectId,
-      ref: "users",
+      ref: "User",
     },
   },
   {
     timestamps: true,
   }
 );
-const Blog = mongoose.model("Blog", blogSchema, "blogs");
+const Blog = mongoose.model("Blog", blogSchema);
 
 export default Blog;

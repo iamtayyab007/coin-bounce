@@ -1,7 +1,26 @@
 import express from "express";
-import { registerUser, loginUser } from "../controller/authController.js";
+import {
+  registerUser,
+  loginUser,
+  logoutUser,
+  refresh,
+} from "../controller/authController.js";
+import { auth } from "../middlewares/auth.js";
+import {
+  create,
+  getAll,
+  getById,
+  update,
+  deleteById,
+} from "../controller/blogController.js";
+import {
+  createComment,
+  getByIdComment,
+} from "../controller/commentController.js";
 
 const router = express.Router();
+
+// user endpoints
 
 // register router
 router.post("/register", registerUser);
@@ -9,23 +28,33 @@ router.post("/register", registerUser);
 // login router
 router.post("/login", loginUser);
 
-// user endpoints
+// logout router
+router.post("/logout", auth, logoutUser);
 
-// signup
-//login
-//logout
 //refresh
+
+router.post("/refresh", refresh);
 
 // blog endpoint
 
 //Crud
+
 //create
+router.post("/blog", auth, create);
+
+//read all blogs
+router.get("/blog/all", auth, getAll);
+//read blogs by id
+router.get("/blog/:id", auth, getById);
 //update
-//read all blogs && read blogs by id
+router.put("/blog", auth, update);
 //delete
+router.delete("/blog/:id", auth, deleteById);
 
 //comment endpoint
-// create comment
-// read comment by log id
 
+// create comment
+router.post("/comment", auth, createComment);
+// read comment by log id
+router.get("/comment/:id", auth, getByIdComment);
 export { router };

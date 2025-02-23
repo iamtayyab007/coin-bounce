@@ -1,4 +1,6 @@
-import { ValidationError } from "joi";
+import pkg from "joi";
+
+const { ValidationError } = pkg;
 const errorHandler = (error, req, res, next) => {
   // default Error
   let status = 501;
