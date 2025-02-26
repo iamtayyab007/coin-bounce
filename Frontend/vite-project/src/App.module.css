@@ -1,0 +1,12 @@
+.container {
+  margin: 20px;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+}
+.main {
+  flex: 1;
+}
