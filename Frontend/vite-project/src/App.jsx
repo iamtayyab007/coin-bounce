@@ -3,8 +3,12 @@ import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import styles from "./app.module.css";
+import Protected from "./components/Protected/Protected";
+import Error from "./pages/Error/Error";
+import Login from "./pages/Login/Login";
 
 function App() {
+  const isAuth = true;
   return (
     <div className={styles.container}>
       <BrowserRouter>
@@ -30,25 +34,46 @@ function App() {
             <Route
               path="blogs"
               exact
-              element={<div className={styles.main}>blogs Page</div>}
+              element={
+                <Protected isAuth={isAuth}>
+                  <div className={styles.main}>blogs Page</div>
+                </Protected>
+              }
             />
 
             <Route
               path="submit"
               exact
-              element={<div className={styles.main}>Submit a Blog</div>}
+              element={
+                <Protected isAuth={isAuth}>
+                  <div className={styles.main}>Submit a Blog</div>
+                </Protected>
+              }
             />
 
             <Route
-              path="log-in"
+              path="login"
               exact
-              element={<div className={styles.main}>log in page</div>}
+              element={
+                <div className={styles.main}>
+                  <Login />
+                </div>
+              }
             />
 
             <Route
-              path="crypto"
+              path="signup"
               exact
               element={<div className={styles.main}>Sign up</div>}
+            />
+
+            <Route
+              path="*"
+              element={
+                <div className={styles.main}>
+                  <Error />
+                </div>
+              }
             />
           </Routes>
           <Footer />

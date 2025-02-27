@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 export const Navbar = () => {
-  const isAuthenticated = true;
+  const isAuthenticated = false;
   return (
     <>
       <nav className={styles.navbar}>
@@ -47,7 +47,7 @@ export const Navbar = () => {
         ) : (
           <div>
             <NavLink
-              to="log-in"
+              to="login"
               className={({ isActive }) =>
                 isActive ? styles.activeStyle : styles.inActiveStyle
               }
@@ -55,7 +55,7 @@ export const Navbar = () => {
               <button className={styles.logInButton}>Log In</button>
             </NavLink>
             <NavLink
-              to="sign-up"
+              to="signup"
               className={({ isActive }) =>
                 isActive ? styles.activeStyle : styles.inActiveStyle
               }
