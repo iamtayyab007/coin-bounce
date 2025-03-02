@@ -40,3 +40,21 @@ export const login = async (data) => {
     return error;
   }
 };
+
+export const signup = async (data) => {
+  try {
+    const response = await api.post("/register", data);
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const signout = async () => {
+  try {
+    const response = await api.post("/logout");
+    return response;
+  } catch (error) {
+    return error;
+  }
+};

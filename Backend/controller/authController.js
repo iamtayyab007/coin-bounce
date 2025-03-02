@@ -95,7 +95,7 @@ const registerUser = async (req, res, next) => {
 
   //6. response data
   const userDtoInstance = new UserDto(user);
-  return res.status(200).json({
+  return res.status(201).json({
     message: "Data saved successfully in database",
     user: userDtoInstance,
     auth: true,

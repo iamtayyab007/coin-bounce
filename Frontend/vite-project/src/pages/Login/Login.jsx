@@ -127,7 +127,7 @@ export default function Login() {
       navigate("/");
     } else if (response.code === "ERR_BAD_REQUEST") {
       // Display error
-      setError(response.response.data.errormessage);
+      setError(response.response.data.message);
     }
   };
 
@@ -154,7 +154,16 @@ export default function Login() {
         error={errors.password && touched.password ? 1 : undefined}
         errormessage={errors.password}
       />
-      <button className={styles.logInButton} onClick={handleLogin}>
+      <button
+        className={styles.logInButton}
+        onClick={handleLogin}
+        disabled={
+          !values.username ||
+          !values.password ||
+          !errors.username ||
+          !errors.password
+        }
+      >
         Log In
       </button>
       <span className={styles.spanCustom}>
