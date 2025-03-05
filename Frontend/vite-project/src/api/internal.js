@@ -37,7 +37,7 @@ export const login = async (data) => {
     const response = await api.post("/login", data);
     return response;
   } catch (error) {
-    return error;
+    console.log(error);
   }
 };
 
@@ -46,13 +46,76 @@ export const signup = async (data) => {
     const response = await api.post("/register", data);
     return response;
   } catch (error) {
-    return error;
+    console.log(error);
   }
 };
 
 export const signout = async () => {
   try {
     const response = await api.post("/logout");
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getAllBlogs = async () => {
+  try {
+    const response = await api.get("/blog/all");
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const submitBlog = async (data) => {
+  try {
+    const response = await api.post("/blog", data);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBlogById = async (id) => {
+  try {
+    const response = await api.get(`/blog/:${id}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getCommentsById = async (id) => {
+  try {
+    const response = await api.get(`/comment/${id}`, {
+      validateStatus: false,
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const postComment = async (data) => {
+  try {
+    const response = await api.post("/comment", data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const deleteBlog = async () => {
+  try {
+    const response = api.delete(`/blog/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateBlog = async (data) => {
+  try {
+    const response = await api.put("/blog", data);
     return response;
   } catch (error) {
     return error;

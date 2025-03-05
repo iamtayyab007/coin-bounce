@@ -160,8 +160,8 @@ export default function Login() {
         disabled={
           !values.username ||
           !values.password ||
-          !errors.username ||
-          !errors.password
+          errors.username ||
+          errors.password
         }
       >
         Log In

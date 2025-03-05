@@ -95,7 +95,7 @@ function Signup() {
         errormessage={errors.password}
       />
       <TextInput
-        type="confirmPassword"
+        type="password"
         name="confirmPassword"
         value={values.confirmPassword}
         onChange={handleChange}

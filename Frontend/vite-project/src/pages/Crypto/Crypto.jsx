@@ -20,6 +20,12 @@ export default function Crypto() {
   if (data.length === 0) {
     return <Loader text="crypto" />;
   }
+  const negativeStyle = {
+    color: "#ea3943",
+  };
+  const positiveStyle = {
+    color: "#16c784",
+  };
   return (
     <table className={styles.table}>
       <thead>
@@ -34,8 +40,8 @@ export default function Crypto() {
       <tbody>
         {data &&
           data.length > 0 &&
-          data.map((coin) => (
-            <tr id={coin.id} className={styles.tableRow}>
+          data.map((coin, index) => (
+            <tr id={coin.id} className={styles.tableRow} key={index}>
               <td>{coin.market_cap_rank}</td>
               <td>
                 <div className={styles.logo}>
@@ -47,7 +53,15 @@ export default function Crypto() {
                 <div className={styles.symbol}>{coin.symbol}</div>
               </td>
               <td>{coin.current_price}</td>
-              <td>{coin.price_change_percentage_24h}</td>
+              <td
+                style={
+                  coin.price_change_percentage_24h < 0
+                    ? negativeStyle
+                    : positiveStyle
+                }
+              >
+                {coin.price_change_percentage_24h}
+              </td>
             </tr>
           ))}
       </tbody>
