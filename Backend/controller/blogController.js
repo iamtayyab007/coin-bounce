@@ -95,10 +95,7 @@ const getById = async (req, res, next) => {
 };
 
 const update = async (req, res, next) => {
-  {
-    /* 
-    
-    //validate
+  //validate
   const updateBlogSchema = Joi.object({
     title: Joi.string().required(),
     content: Joi.string().required(),
@@ -109,66 +106,54 @@ const update = async (req, res, next) => {
 
   const { error } = updateBlogSchema.validate(req.body);
 
-  if (error) {
-    return next(error);
-  }
-  // delete previous photo
-  // save new photo
   const { title, content, author, blogId, photo } = req.body;
 
+  // delete previous photo
+  // save new photo
+
   let blog;
+
   try {
     blog = await Blog.findOne({ _id: blogId });
-
-    if (photo) {
-      let previousPhoto = blog.photoPath;
-      previousPhoto.split("/").at(-1);
-
-      //delete previous photo
-      fs.unlink(`storage/${previousPhoto}`);
-
-      // save a new photo
-
-      //read as buffer
-      const buffer = Buffer.from(
-        photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
-        "base64"
-      );
-
-      //allot a random name
-      const imagePath = `${Date.now()}-${author}.png`;
-
-      // save locally
-      try {
-        fs.writeFileSync(`/storage/${imagePath}`, buffer);
-      } catch (error) {
-        return next(error);
-      }
-
-      await Blog.updateOne(
-        { _id: blogId },
-        {
-          title,
-          content,
-          photoPath: `${BACKEND_SERVER_PATH}/storage/${imagePath}`,
-        }
-      );
-    } else {
-      await Blog.updateOne(
-        { _id: blogId },
-        {
-          title,
-          content,
-        }
-      );
-    }
-    return res.status(200).json({ message: "Blog updated successfully" });
   } catch (error) {
     return next(error);
   }
-    */
+
+  if (photo) {
+    let previousPhoto = blog.photoPath;
+
+    previousPhoto = previousPhoto.split("/").at(-1);
+
+    // delete photo
+    fs.unlinkSync(`storage/${previousPhoto}`);
+
+    // read as buffer
+    const buffer = Buffer.from(
+      photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
+      "base64"
+    );
+
+    // allot a random name
+    const imagePath = `${Date.now()}-${author}.png`;
+
+    // save locally
+
+    fs.writeFileSync(`storage/${imagePath}`, buffer);
+
+    await Blog.updateOne(
+      { _id: blogId },
+      {
+        title,
+        content,
+        photoPath: `${BACKEND_SERVER_PATH}/storage/${imagePath}`,
+      }
+    );
+  } else {
+    await Blog.updateOne({ _id: blogId }, { title, content });
   }
 
+  return res.status(200).json({ message: "blog updated!" });
+  /*
   // Validate input
   const updateBlogSchema = Joi.object({
     title: Joi.string().required(),
@@ -254,6 +239,7 @@ const update = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
+  */
 };
 
 const deleteById = async (req, res, next) => {

@@ -28,7 +28,7 @@ export default function UpdateBlog() {
     e.preventDefault();
     let data;
 
-    if (photo.includes("http")) {
+    if (photo && photo.includes("http")) {
       data = {
         author,
         title,
