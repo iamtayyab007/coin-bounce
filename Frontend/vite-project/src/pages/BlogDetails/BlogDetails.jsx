@@ -48,14 +48,14 @@ export default function BlogDetails() {
       blog: blogId,
     };
     const response = await postComment(data);
-    if (response.state === 201) {
+    if (response.status === 201) {
       setComments("");
       setReload(!reload);
     }
   };
   const deleteBlogHandler = async () => {
     const response = await deleteBlog(blogId);
-    if (response.state === 200) {
+    if (response.status === 200) {
       navigate("/");
     }
   };
@@ -71,7 +71,7 @@ export default function BlogDetails() {
             @
             {blog.authorUsername +
               "on" +
-              new Data(blog.createAt).toDateString()}
+              new Date(blog.createdAt).toDateString()}
           </p>
         </div>
         <div className={styles.image}>
@@ -82,7 +82,7 @@ export default function BlogDetails() {
           <div className={styles.controls}>
             <button
               className={styles.editButton}
-              onClick={navigate(`/blog-update/${blog._id}`)}
+              onClick={() => navigate(`/blog-update/${blog._id}`)}
             >
               Edit
             </button>

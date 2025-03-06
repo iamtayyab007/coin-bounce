@@ -40,7 +40,7 @@ export default function UpdateBlog() {
         author,
         title,
         content,
-        photoPath: photo,
+        photo,
         blogId,
       };
     }

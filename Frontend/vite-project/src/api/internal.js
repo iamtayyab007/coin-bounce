@@ -79,7 +79,7 @@ export const submitBlog = async (data) => {
 
 export const getBlogById = async (id) => {
   try {
-    const response = await api.get(`/blog/:${id}`);
+    const response = await api.get(`/blogs/${id}`);
     return response;
   } catch (error) {
     console.log(error);
@@ -100,6 +100,7 @@ export const getCommentsById = async (id) => {
 export const postComment = async (data) => {
   try {
     const response = await api.post("/comment", data);
+    return response;
   } catch (error) {
     console.log(error);
   }
@@ -108,6 +109,7 @@ export const postComment = async (data) => {
 export const deleteBlog = async () => {
   try {
     const response = api.delete(`/blog/${id}`);
+    return response;
   } catch (error) {
     console.log(error);
   }

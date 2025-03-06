@@ -45,7 +45,7 @@ router.post("/blog", auth, create);
 //read all blogs
 router.get("/blog/all", auth, getAll);
 //read blogs by id
-router.get("/blog/:id", auth, getById);
+router.get("/blogs/:id", auth, getById);
 //update
 router.put("/blog", auth, update);
 //delete
