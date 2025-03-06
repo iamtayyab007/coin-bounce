@@ -95,6 +95,8 @@ const getById = async (req, res, next) => {
 };
 
 const update = async (req, res, next) => {
+  {
+    /*
   //validate
   const updateBlogSchema = Joi.object({
     title: Joi.string().required(),
@@ -152,8 +154,9 @@ const update = async (req, res, next) => {
     await Blog.updateOne({ _id: blogId }, { title, content });
   }
 
-  return res.status(200).json({ message: "blog updated!" });
-  /*
+  return res.status(200).json({ message: "blog updated!" });*/
+  }
+
   // Validate input
   const updateBlogSchema = Joi.object({
     title: Joi.string().required(),
@@ -239,7 +242,6 @@ const update = async (req, res, next) => {
   } catch (error) {
     return next(error);
   }
-  */
 };
 
 const deleteById = async (req, res, next) => {
