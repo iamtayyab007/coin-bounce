@@ -6,7 +6,11 @@ import Comment from "../models/comment.js";
 import { BACKEND_SERVER_PATH } from "../config/index.js";
 import { BlogDto } from "../dto/blog.js";
 import { BlogDetailsDto } from "../dto/blog-details.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const mongodbIdPattern = /^[0-9a-fA-F]{24}$/;
 const create = async (req, res, next) => {
   //validate req body
@@ -91,7 +95,10 @@ const getById = async (req, res, next) => {
 };
 
 const update = async (req, res, next) => {
-  //validate
+  {
+    /* 
+    
+    //validate
   const updateBlogSchema = Joi.object({
     title: Joi.string().required(),
     content: Joi.string().required(),
@@ -155,6 +162,94 @@ const update = async (req, res, next) => {
         }
       );
     }
+    return res.status(200).json({ message: "Blog updated successfully" });
+  } catch (error) {
+    return next(error);
+  }
+    */
+  }
+
+  // Validate input
+  const updateBlogSchema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+    author: Joi.string().required(),
+    blogId: Joi.string().required(),
+    photo: Joi.string().optional(),
+  });
+
+  const { error } = updateBlogSchema.validate(req.body);
+  if (error) return next(error);
+
+  const { title, content, author, blogId, photo } = req.body;
+
+  try {
+    const blog = await Blog.findOne({ _id: blogId });
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    // Handle previous photo deletion
+    if (photo) {
+      let previousPhoto = blog.photoPath
+        ? blog.photoPath.split("/").pop()
+        : null;
+      if (previousPhoto) {
+        const previousPhotoPath = path.join(
+          __dirname,
+          "storage",
+          previousPhoto
+        );
+        try {
+          if (fs.existsSync(previousPhotoPath)) {
+            fs.unlinkSync(previousPhotoPath);
+          }
+        } catch (err) {
+          console.error("Error deleting previous photo:", err);
+        }
+      }
+
+      // Convert base64 image to buffer
+      const buffer = Buffer.from(
+        photo.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
+        "base64"
+      );
+
+      // Create storage directory if it doesn't exist
+      const storageDir = path.join(__dirname, "storage");
+      if (!fs.existsSync(storageDir)) {
+        fs.mkdirSync(storageDir, { recursive: true });
+      }
+
+      // Save new image
+      const imagePath = `${Date.now()}-${author}.png`;
+      const fullImagePath = path.join(storageDir, imagePath);
+      try {
+        fs.writeFileSync(fullImagePath, buffer);
+      } catch (error) {
+        return next(error);
+      }
+
+      // Update the blog with the new image path
+      await Blog.updateOne(
+        { _id: blogId },
+        {
+          title,
+          content,
+          photoPath: `${BACKEND_SERVER_PATH}/storage/${imagePath}`,
+        }
+      );
+    } else {
+      // Update without changing the photo
+      await Blog.updateOne(
+        { _id: blogId },
+        {
+          title,
+          content,
+        }
+      );
+    }
+
     return res.status(200).json({ message: "Blog updated successfully" });
   } catch (error) {
     return next(error);
