@@ -18,10 +18,10 @@ function Blog() {
     // cleanup function
     setBlogs([]);
   }, []);
-  if (blogs.length === 0) {
+  if (!blogs || blogs.length === 0) {
     return <Loader text="blogs" />;
   }
-
+  console.log(blogs);
   return (
     <div className={styles.blogsWrapper}>
       {blogs.map((blog) => (

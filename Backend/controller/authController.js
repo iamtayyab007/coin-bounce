@@ -219,7 +219,7 @@ const refresh = async (req, res, next) => {
   }
   try {
     const accessToken = JWTservice.signAccessToken({ _id: id }, "30m");
-    const refreshToken = JWTservice.signAccessToken({ _id: id }, "60m");
+    const refreshToken = JWTservice.signRefreshToken({ _id: id }, "60m");
 
     await Token.updateOne({ _id: id }, { token: refreshToken });
     res.cookie("accessToken", accessToken, {

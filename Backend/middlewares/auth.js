@@ -28,6 +28,7 @@ const auth = async (req, res, next) => {
     }
     const userDto = new UserDto(user);
     req.user = userDto;
+    //return res.status(200).json({ user: userDto });
     next();
   } catch (error) {
     return next(error);

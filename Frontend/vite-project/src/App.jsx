@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { Navbar } from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer/Footer";
@@ -15,7 +17,35 @@ import BlogDetails from "./pages/BlogDetails/BlogDetails";
 import UpdateBlog from "./pages/UpdateBlog/UpdateBlog";
 
 function App() {
+  //const [user, setUser] = useState(null);
+  //const [loading, setLoading] = useState(true);
+  //const [isAuth, setIsAuth] = useState(false);
+
+  // useEffect(() => {
+  //   (async function getAuth() {
+  //     try {
+  //       const response = await axios.get("http://localhost:3000/verify", {
+  //         withCredentials: true,
+  //       });
+
+  //       setUser(response.data.user);
+  //     } catch (error) {
+  //       console.log("error:", error.response?.data?.message);
+  //       setUser(null);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   })();
+  // }, []);
+  // console.log(user);
+  // useEffect(() => {
+  //   setIsAuth(user !== null);
+  // }, [user]);
   const isAuth = useSelector((state) => state.user.auth);
+  // if (loading) {
+  //   return <p>Loading</p>;
+  // }
+
   return (
     <div className={styles.container}>
       <BrowserRouter>

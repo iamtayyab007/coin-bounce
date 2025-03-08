@@ -25,6 +25,11 @@ export default function SubmitBlog() {
   };
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    if (!author) {
+      console.error("User is not logged in. Cannot submit blog.");
+      return;
+    }
     const data = {
       author,
       title,
@@ -33,8 +38,8 @@ export default function SubmitBlog() {
     };
     const response = await submitBlog(data);
     console.log(response);
-    if (response.status === 201) {
-      console.log(navigate("/"));
+    if (response.status === 200) {
+      navigate("/");
     }
   };
   return (

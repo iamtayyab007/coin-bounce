@@ -35,6 +35,10 @@ router.post("/logout", auth, logoutUser);
 
 router.post("/refresh", refresh);
 
+// auto login
+
+router.get("/verify", auth);
+
 // blog endpoint
 
 //Crud
