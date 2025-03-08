@@ -29,7 +29,7 @@ const create = async (req, res, next) => {
     return next(error);
   }
   const { title, author, content, photoPath } = req.body;
-
+  // this is test comment
   // use buffer for photo reading
   const buffer = Buffer.from(
     photoPath.replace(/^data:image\/(png|jpg|jpeg);base64,/, ""),
