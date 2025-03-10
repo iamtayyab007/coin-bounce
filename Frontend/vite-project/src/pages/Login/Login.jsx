@@ -122,6 +122,7 @@ export default function Login() {
         username: response.data.user.username,
         auth: response.data.auth,
       };
+
       dispatch(setUser(user));
       //2. Redirect to homepage
       navigate("/");

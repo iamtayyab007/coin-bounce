@@ -33,11 +33,7 @@ router.post("/logout", auth, logoutUser);
 
 //refresh
 
-router.post("/refresh", refresh);
-
-// auto login
-
-router.get("/verify", auth);
+router.get("/refresh", refresh);
 
 // blog endpoint
 

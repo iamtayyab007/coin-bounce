@@ -15,6 +15,8 @@ import Blog from "./pages/Blog/Blog";
 import SubmitBlog from "./pages/SubmitBlog/SubmitBlog";
 import BlogDetails from "./pages/BlogDetails/BlogDetails";
 import UpdateBlog from "./pages/UpdateBlog/UpdateBlog";
+import useAutoLogin from "./hooks/useAutoLogin";
+import Loader from "./components/Loader/Loader";
 
 function App() {
   //const [user, setUser] = useState(null);
@@ -45,8 +47,12 @@ function App() {
   // if (loading) {
   //   return <p>Loading</p>;
   // }
+  const loading = useAutoLogin();
+  console.log(loading);
 
-  return (
+  return loading ? (
+    <Loader text="please wait loading...." />
+  ) : (
     <div className={styles.container}>
       <BrowserRouter>
         <div className={styles.layout}>

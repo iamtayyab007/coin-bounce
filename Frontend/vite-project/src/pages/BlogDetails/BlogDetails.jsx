@@ -39,7 +39,7 @@ export default function BlogDetails() {
       }
     }
     getBlogDetails();
-  }, []);
+  }, [reload]);
 
   const postCommentHandler = async () => {
     const data = {
@@ -48,7 +48,7 @@ export default function BlogDetails() {
       blog: blogId,
     };
     const response = await postComment(data);
-    if (response.status === 201) {
+    if (response.status === 200) {
       setComments("");
       setReload(!reload);
     }

@@ -18,7 +18,7 @@ export const userSlice = createSlice({
       state.username = username;
       state.auth = auth;
       // Save the updated user state to sessionStorage
-      sessionStorage.setItem("user", JSON.stringify(state));
+      // sessionStorage.setItem("user", JSON.stringify(state));
     },
 
     resetUser: (state, action) => {
@@ -28,7 +28,7 @@ export const userSlice = createSlice({
       state.auth = false;
 
       // Clear user data from sessionStorage
-      sessionStorage.removeItem("user");
+      //sessionStorage.removeItem("user");
     },
   },
 });

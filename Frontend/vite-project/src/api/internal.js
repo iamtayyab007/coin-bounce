@@ -22,6 +22,7 @@ export const login = async (data) => {
 */
 }
 
+import { original } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const api = axios.create({
@@ -106,7 +107,7 @@ export const postComment = async (data) => {
   }
 };
 
-export const deleteBlog = async () => {
+export const deleteBlog = async (id) => {
   try {
     const response = api.delete(`/blog/${id}`);
     return response;
@@ -123,3 +124,26 @@ export const updateBlog = async (data) => {
     return error;
   }
 };
+
+// axios interceptors
+api.interceptors.response.use(
+  (config) => config,
+  async (error) => {
+    const originalReq = error.config;
+    if (
+      (error.response.status === 401 || error.response.status === 500) &&
+      originalReq &&
+      !originalReq._isRetry
+    ) {
+      originalReq._isRetry = true;
+    }
+    try {
+      await axios.get("http://localhost:3000/refresh", {
+        withCredentials: true,
+      });
+      return api.request(originalReq);
+    } catch (error) {
+      return error;
+    }
+  }
+);

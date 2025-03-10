@@ -204,14 +204,14 @@ const update = async (req, res, next) => {
       );
 
       // Create storage directory if it doesn't exist
-      const storageDir = path.join(__dirname, "storage");
-      if (!fs.existsSync(storageDir)) {
-        fs.mkdirSync(storageDir, { recursive: true });
-      }
+      // const storageDir = path.join(__dirname, "storage");
+      // if (!fs.existsSync(storageDir)) {
+      // fs.mkdirSync(storageDir, { recursive: true });
+      // }
 
       // Save new image
       const imagePath = `${Date.now()}-${author}.png`;
-      const fullImagePath = path.join(storageDir, imagePath);
+      const fullImagePath = path.join("storage/", imagePath);
       try {
         fs.writeFileSync(fullImagePath, buffer);
       } catch (error) {
