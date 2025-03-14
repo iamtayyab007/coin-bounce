@@ -71,7 +71,7 @@ const registerUser = async (req, res, next) => {
     user = await userToRegister.save();
 
     // token generation
-    accessToken = JWTservice.signAccessToken({ _id: user._id }, "1s");
+    accessToken = JWTservice.signAccessToken({ _id: user._id }, "30m");
     refreshToken = JWTservice.signRefreshToken({ _id: user._id }, "60m");
   } catch (error) {
     return next(error);
@@ -137,7 +137,7 @@ const loginUser = async (req, res, next) => {
   }
 
   // token generating and sending in cookies
-  const accessToken = JWTservice.signAccessToken({ _id: user._id }, "1s");
+  const accessToken = JWTservice.signAccessToken({ _id: user._id }, "30m");
   const refreshToken = JWTservice.signRefreshToken({ _id: user._id }, "60m");
 
   // update refresh tokens in database
@@ -219,7 +219,7 @@ const refresh = async (req, res, next) => {
     return next(error);
   }
   try {
-    const accessToken = JWTservice.signAccessToken({ _id: id }, "1s");
+    const accessToken = JWTservice.signAccessToken({ _id: id }, "30m");
     const refreshToken = JWTservice.signRefreshToken({ _id: id }, "60m");
 
     await Token.updateOne({ _id: id }, { token: refreshToken });

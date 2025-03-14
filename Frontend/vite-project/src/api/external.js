@@ -1,6 +1,9 @@
 import axios from "axios";
 const NEWS_API_KEY = import.meta.env.VITE_API_KEY;
-const NEWS_API_ENDPOINT = `https://newsapi.org/v2/everything?q=business AND blockchain&sortBy=publishedAt&language=en&apiKey=${NEWS_API_KEY}`;
+//const NEWS_API_ENDPOINT = `https://newsapi.org/v2/everything?q=business AND blockchain&sortBy=publishedAt&language=en&apiKey=${NEWS_API_KEY}`;
+
+const NEWS_API_ENDPOINT =
+  "https://saurav.tech/NewsAPI/top-headlines/category/business/us.json";
 
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 const CRYPTO_API_ENDPOINT =
